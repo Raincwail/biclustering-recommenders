@@ -59,7 +59,8 @@ class BitPatternBiclusteringAlgorithm(BaseBiclusteringAlgorithm):
         data = check_array(data, dtype=np.bool, copy=True)
         self._validate_parameters()
 
-        data = [np.packbits(row) for row in data]
+        # data = [np.packbits(row) for row in data]
+        data = np.packbits(np.asarray(data), axis=1)
         biclusters = []
         patterns_found = set()
 
@@ -68,7 +69,8 @@ class BitPatternBiclusteringAlgorithm(BaseBiclusteringAlgorithm):
             pattern_cols = sum(popcount(int(n)) for n in pattern)
 
             if pattern_cols >= self.min_cols and self._is_new(patterns_found, pattern):
-                rows = [k for k, r in enumerate(data) if self._match(pattern, r)]
+                # rows = [k for k, r in enumerate(data) if self._match(pattern, r)]
+                rows = np.where(np.all(np.bitwise_and(data, pattern) == pattern, axis=1))[0]
 
                 if len(rows) >= self.min_rows:
                     cols = np.where(np.unpackbits(pattern) == 1)[0]
