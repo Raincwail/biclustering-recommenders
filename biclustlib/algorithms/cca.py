@@ -238,7 +238,7 @@ class ChengChurchAlgorithm(BaseBiclusteringAlgorithm):
             raise ValueError("multiple_node_deletion_threshold must be >= 1.0, got {}".format(self.multiple_node_deletion_threshold))
 
         # if self.data_min_cols < 100:
-            # raise ValueError("data_min_cols must be >= 100, got {}".format(self.data_min_cols))
+        #     raise ValueError("data_min_cols must be >= 100, got {}".format(self.data_min_cols))
 
 
 class ModifiedChengChurchAlgorithm(ChengChurchAlgorithm):
